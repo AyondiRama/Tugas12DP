@@ -1,5 +1,6 @@
 using Applications_Image_Filter.Core;
 using Applications_Image_Filter.Interface;
+using Applications_Image_Filter.Logging;
 using System;
 
 namespace Applications_Image_Filter.Commands
@@ -19,9 +20,14 @@ namespace Applications_Image_Filter.Commands
 
         public void Execute()
         {
+            var logger = Logger.GetInstance();
+            logger.Log($"Applying filter to image: {imageFileName}");
+
             receiver.SetFilter(filter);
             var result = receiver.ApplyCurrentFilter(imageFileName);
             Console.WriteLine(result);
+
+            logger.Log($"Filter applied successfully. Result: {result}");
         }
     }
 }
